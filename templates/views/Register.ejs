@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/customCSS/Register.css">
+    <link rel="stylesheet" href="/customCSS/common.css">
+
+    <title>Water-Delivery</title>
+  </head>
+  <body>
+
+    <div class="container-fluid">
+      <div class="row box">
+          <div class="col">
+              <div class="row"><h6 class="myheading">Registration</h6></div>
+              <div class="row"><img class="logo" src="./images/logo.svg" height="103" width="103" alt="logo"></div>
+              <div class="row">
+                <form class="myform" action="addUser" method="POST">
+                    <div class="form-group">
+                      <span class="mylabel">Full Name</span><span class="error"><%= error.nameError %></span>
+                      <input type="text" class="form-control form-control-sm" name="username" value="<%=user.username%>" required>
+                    </div>
+                    <div class="form-group">
+                      <span class="mylabel">Mobile</span><span class="error"><%= error.mobileError %><%= regError %></span>
+                      <input type="number" class="form-control form-control-sm" name="mobileno" value="<%=user.mobileno%>" required>
+                    </div>
+                    <div class="form-group">
+                      <span class="mylabel">Email</span><span class="error"><%= error.emailError %></span>
+                      <input type="email" class="form-control form-control-sm" name="email" value="<%=user.email%>" required>
+                    </div>
+                    <div class="form-group">
+                      <span class="mylabel">Password</span><span class="error"><%= error.passwordError %></span>
+                      <input type="password" class="form-control form-control-sm" name="password" value="<%=user.password%>" required>
+                    </div>
+            
+                    <div class="form-group text-center">
+                      <button type="submit" class="btn btn-light font-weight-bold register-button shadow-sm ml-4">Register</button>
+                    </div>
+            
+                    <div class="form-group text-center">
+                      <p class="bottomlabel small font-weight-bold ml-4">Have an Account?<a class="font-weight-bold" href="login">LOGIN</a></p>
+                    </div>
+                </form> 
+              </div>
+          </div>
+      </div>
+    </div>
+             
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/customCSS/Login.css">
+    <link rel="stylesheet" href="/customCSS/common.css">
+
+    <title>Water-Delivery</title>
+  </head>
+  <body>
+
+    <div class="container-fluid">
+      <div class="row box">
+          <div class="col">
+              <div class="row">
+                <form class="myform" action="loginVerify" method="POST">
+                    <div class="form-group">
+                      <span class="mylabel">Mobile/Email</span><span class="error"><%= error.mobileOrEmailError %></span>
+                      <input type="text" name="mobileOrEmail" value="<%= user.mobileOrEmail %>" class="form-control form-control-sm" required>
+                    </div>
+                    <div class="form-group">
+                      <span class="mylabel">Password</span><span class="error"><%= error.passwordError %></span>
+                      <input type="password" name="password" value="<%= user.password %>" class="form-control form-control-sm" required>
+                    </div>
+
+                    <div class="form-group text-right">
+                      <a class="font-weight-bold bottomlabel" href="#">Forgot?</a>
+                    </div>
+            
+                    <div class="form-group text-center">
+                      <button type="submit" class="btn btn-light font-weight-bold register-button shadow-sm ml-4">Login</button>
+                    </div>       
+                </form> 
+              </div>
+          </div>
+      </div>
+    </div>
+             
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+
+  </body>
+</html>
