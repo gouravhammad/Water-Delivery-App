@@ -27,7 +27,7 @@ router.get('/',function(req,res){
         }
         else
         {
-            var sql = "select * from product"
+            var sql = "select * from product where category = 'drinking'"
         }
 
         connection.query(sql,function(error,result){
