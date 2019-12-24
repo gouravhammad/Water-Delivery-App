@@ -1,12 +1,7 @@
-/*
-    DEMO STYLE
-*/
-
 body {
     font-family: 'Poppins', sans-serif;
-    background: #fafafa;
+    background-color:#EFF2F5;
     font-weight: 500;
-    overflow-y: hidden;
 }
 
 p {

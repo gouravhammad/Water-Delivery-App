@@ -1,3 +1,8 @@
+body
+{
+    background-color:#EFF2F5;
+}
+
 .mybuttonOne{
     margin-top: 60vh;
     font-size: 18px;
@@ -40,8 +45,3 @@
     width: 360px;
 }
 
-body
-{
-    overflow-y: hidden;
-    overflow-x: hidden;
-}

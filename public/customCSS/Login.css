@@ -1,3 +1,8 @@
+body
+{
+    background-color:#EFF2F5;
+}
+
 .container-fluid{
     background-color:#EFF2F5;
     margin:0;
@@ -58,9 +63,3 @@
      font-size: 12px;
      color:black;
  }
-
- body
-{
-    overflow-y: hidden;
-    overflow-x: hidden;
-}
