@@ -58,3 +58,9 @@
      font-size: 12px;
      color:black;
  }
+
+ body
+{
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
