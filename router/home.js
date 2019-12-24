@@ -17,8 +17,8 @@ router.get('/',function(req,res){
 router.get('/login',function(req,res){
     try
     {
-        user = { mobileOrEmail:null, password:null }
-        error = { mobileOrEmailError:null, passwordError:null }
+        user = { mobileno:null, password:null }
+        error = { mobileError:null, passwordError:null }
 
         res.render('Login',{user,error})
     }
@@ -109,8 +109,7 @@ router.post('/addUser', [
                         if(err) throw err
 
                         req.session.mobileno = user.mobileno
-                        req.session.email = user.email
-
+                      
                         res.write("<script>alert('Used Added'); document.location.href='user'; </script>");
                         res.end()   
                     })
@@ -125,7 +124,7 @@ router.post('/addUser', [
 })
 
 router.post('/loginVerify', [
-    check('mobileOrEmail','Enter valid email/mobile').trim().isLength({ min: 10 , max: 30}),
+    check('mobileno','Must be 10 digits').trim().isLength({ min: 10 , max: 10}),
     check('password','Must be of Min 8 and Max 20 length').trim().isLength({ min: 8 , max: 20})
   ], (req, res) => {
 
@@ -134,19 +133,19 @@ router.post('/loginVerify', [
         const errors = validationResult(req);
         
         user = {
-            mobileOrEmail: req.body.mobileOrEmail,
+            mobileno: req.body.mobileno,
             password: req.body.password
         }
 
-        error = {mobileOrEmailError:null, passwordError:null}
+        error = {mobileError:null, passwordError:null}
 
         for(i = 0; i < errors.errors.length; i++)
         {
             name =  errors.errors[i].param
 
-            if(name === 'mobileOrEmail')
+            if(name === 'mobileno')
             {
-                error.mobileOrEmailError = errors.errors[i].msg
+                error.mobileError = errors.errors[i].msg
             }
             else
             {
@@ -160,29 +159,18 @@ router.post('/loginVerify', [
         }
         else
         {
-            mobile = parseInt(user.mobileOrEmail)
-
-            if(mobile && user.mobileOrEmail.length == 10)
-            {
-                var sql = "select * from user where password = '" + user.password + "' and ( email = '" + user.mobileOrEmail + "' or mobileno = " + mobile + " )"
-            }
-            else
-            {
-                var sql = "select * from user where password = '" + user.password + "' and email = '" + user.mobileOrEmail + "'"
-            }
+            var sql = "select * from user where password = '" + user.password + "' and mobileno = " + user.mobileno 
             
             connection.query(sql,function(err,result){
                 if(err) throw err
                 if(result.length == 0)
                 {
-                    res.write("<script>alert('Invalid Email/Mobile or Password'); document.location.href='login'; </script>");
+                    res.write("<script>alert('Invalid Mobile or Password'); document.location.href='login'; </script>");
                     res.end()  
                 }
                 else
                 {
-                    req.session.mobileno = mobile
-                    req.session.email = user.mobileOrEmail
-
+                    req.session.mobileno = user.mobileno
                     res.redirect('../user')
                 }
             }) 
@@ -190,7 +178,6 @@ router.post('/loginVerify', [
     }
     catch(e)
     {
-        console.log("Error")
         res.redirect('/')
     }
 })

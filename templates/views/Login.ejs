@@ -18,8 +18,8 @@
               <div class="row">
                 <form class="myform" action="loginVerify" method="POST">
                     <div class="form-group">
-                      <span class="mylabel">Mobile/Email</span><span class="error"><%= error.mobileOrEmailError %></span>
-                      <input type="text" name="mobileOrEmail" value="<%= user.mobileOrEmail %>" class="form-control form-control-sm" required>
+                      <span class="mylabel">Mobile</span><span class="error"><%= error.mobileError %></span>
+                      <input type="number" name="mobileno" value="<%= user.mobileno %>" class="form-control form-control-sm" required>
                     </div>
                     <div class="form-group">
                       <span class="mylabel">Password</span><span class="error"><%= error.passwordError %></span>

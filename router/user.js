@@ -5,11 +5,31 @@ const connection = require('../utility/mysqlConn')
 router.get('/',function(req,res){
     try
     {
-         console.log(req.session.mobileno)
-         console.log(req.session.email)
+        console.log(req.session.mobileno)
+        var category = req.query.category
+        var drinking = true
+        var domestic = false
 
-        var sql = "select * from product"
-       
+        if(category)
+        {
+            var sql = "select * from product where category = '" + category + "'"
+            
+            if(category == 'drinking')
+            {
+                drinking = true
+                domestic = false
+            }
+            else
+            {
+                drinking = false
+                domestic = true
+            }
+        }
+        else
+        {
+            var sql = "select * from product"
+        }
+
         connection.query(sql,function(error,result){
             if(error)
             {
@@ -18,7 +38,7 @@ router.get('/',function(req,res){
             }
             else
             {
-                res.render('UserHome',{result})
+                res.render('UserHome',{result,drinking,domestic})
             }
         })
     }

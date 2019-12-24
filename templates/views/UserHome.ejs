@@ -1,27 +1,156 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Water-Delivery</title>
-    </head>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Water-Delivery</title>
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./customCSS/UserHome.css">
+    <link rel="stylesheet" href="./customCSS/common.css">
+    
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+</head>
+
 <body>
-    <h1>User Home Page</h1>
 
-    <table>
-        <th>Product Pic</th>
-        <th>Product Name</th>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div id="dismiss">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+
+            <ul class="list-unstyled components"> 
+                <li> <a href="#">My Account</a> </li>
+                <li> <a href="#">Subscriptions</a> </li>
+                <li> <a href="#">Contact Us</a> </li>
+                <li> <a href="#">About Us</a> </li>
+                <li> <a href="#">Share</a> </li>
+                <li> <a href="#">Rate Us</a> </li>
+                <li> <a href="#">Log Out</a> </li>
+            </ul>
+
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <nav class="navbar  navbar-light bg-light fixed-top p-0">
+                <div class="container-fluid p-0">
+                    <button type="button" id="sidebarCollapse" class="ml-1 btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                    </button>
+                    
+                    <h4 style="margin-left: auto; margin-right: auto; font-weight: bolder; margin-top: 5px;">HOME</h4>
+                       
+                </div>
+            </nav>
+
+            <div class="container p-0 mt-5 mb-3">
+              <div class="row row-cols-2">
+
+                <% for(i = 0; i < result.length; i++){ %>
+
+                  <div class="col p-0" style="height: 305px;">
+                    <div class="card mt-2 ml-auto mr-auto rounded shadow" style="width: 10rem; height: 290px;">
+                      <div class="row text-center">
+                        <div class="col mt-2">
+                         <img src="./products/<%= result[i].picture %>" height="140" width="140" alt="...">
+                        </div>
+                      </div>
+                      <div class="card-body">
+                        <div class="row product-name">
+                            <div class="col p-0">
+                              <h5 class="card-title product-heading"><%= result[i].name %></h5>
+                            </div>
+                        </div>
+                        <div class="row product-detail">
+                          <div class="col p-0">
+                            <h6 class="detail-text">This extra detail is optionl, We can remove it</h6>
+                          </div>
+                        </div>
+                        <div class="row">
+                           <div class="col p-0">
+                             <p class="card-text product-price">Rs. <%= result[i].price %></p>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col p-0"><a href="#" class="btn btn-warning btn-sm btn-block"><span class="font-weight-bold" style="font-size: 10px;">Add to cart</span></a></div>
+                            <div class="col p-0"><a href="#" class="btn btn-success btn-sm btn-block"><span class="font-weight-bold" style="font-size: 10px;">Buy now</span></a></div>
+                         </div>   
+                      </div>
+                    </div>
+                  </div>
+   
+
+                  <% } %>
+      
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay"></div>
+
+    <footer class="py-0 bg-light fixed-bottom">
+      <div class="container">
+        <div class="row">
+            <div class="col p-0">
+                <% if(drinking){ %>
+                    <a href="?category=drinking" class="category-button btn btn-dark btn-sm btn-block font-weight-bold">DRINKING</a>
+                <%}else{%>
+                    <a href="?category=drinking" class="category-button btn btn-outline-dark btn-sm btn-block font-weight-bold">DRINKING</a>
+                <%}%>
+            </div>  
+
+            <div class="col p-0">
+                <% if(domestic){ %>
+                    <a href="?category=domestic" class="category-button btn btn-dark btn-sm btn-block font-weight-bold">TANKERS</a>
+                <%}else{%>
+                    <a href="?category=domestic" class="category-button btn btn-outline-dark btn-sm btn-block font-weight-bold">TANKERS</a>
+                <%}%>
+            </div>     
+        </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#dismiss, .overlay').on('click', function () {
+                $('#sidebar').removeClass('active');
+                $('.overlay').removeClass('active');
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').addClass('active');
+                $('.overlay').addClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
         
-        <% for(i = 0; i < result.length; i++){ %>
-         
-            <tr>
-                <td>Sample Pic</td>
-                <td>Bislery</td>
-            </tr>
-
-        <% } %>
-        
-    </table>
-
-    <button>Driking</button>
-    <button>Domestic</button%= result%>
+    </script>
 </body>
+
 </html>
