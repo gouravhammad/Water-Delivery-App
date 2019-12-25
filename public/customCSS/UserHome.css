@@ -110,7 +110,6 @@ a:focus {
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #47748b;
 }
 
 #sidebar ul p {
@@ -213,11 +212,12 @@ a.article:hover {
 {
     font-size: 10px;
     text-align: justify;
+    background-color: white;
+    height: 25px;
 }
 
 .product-price
 {
-    padding: 2px;
     font-size: 12px;
     font-weight: bold;
 }
@@ -226,4 +226,9 @@ a.article:hover {
 {
     border-radius: 0px;
     letter-spacing: 2px;
+}
+
+.card-button
+{
+    border-radius: 0px;
 }

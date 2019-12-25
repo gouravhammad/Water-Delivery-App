@@ -61,11 +61,11 @@
 
                 <% for(i = 0; i < result.length; i++){ %>
 
-                  <div class="col p-0" style="height: 305px;">
-                    <div class="card mt-2 ml-auto mr-auto rounded shadow" style="width: 9rem; height: 290px;">
+                  <div class="col p-0" style="height: 285px;">
+                    <div class="card mt-2 ml-auto mr-auto rounded shadow" style="width: 9rem; height: 270px;">
                       <div class="row text-center">
                         <div class="col mt-2">
-                         <img src="./products/<%= result[i].picture %>" height="140" width="140" alt="...">
+                         <img src="./products/<%= result[i].picture %>" height="130" width="130" alt="...">
                         </div>
                       </div>
                       <div class="card-body">
@@ -81,12 +81,12 @@
                         </div>
                         <div class="row">
                            <div class="col p-0">
-                             <p class="card-text product-price">Rs. <%= result[i].price %></p>
-                            </div>
+                              <p class="card-text product-price ml-1"> Rs. <%= result[i].price %></p>
+                           </div>
                         </div>
                          <div class="row">
-                            <div class="col p-0"><a href="#" class="btn btn-warning btn-sm btn-block"><span class="font-weight-bold" style="font-size: 10px;">cart</span></a></div>
-                            <div class="col p-0"><a href="#" class="btn btn-success btn-sm btn-block"><span class="font-weight-bold" style="font-size: 10px;">Buy now</span></a></div>
+                            <div class="col p-0"><a href="#" class="card-button btn btn-outline-dark btn-sm btn-block p-0"><span class="font-weight-bold" style="font-size: 10px;">Add to cart</span></a></div>
+                            <div class="col p-0"><a href="#" class="card-button btn btn-dark btn-sm btn-block p-0"><span class="font-weight-bold" style="font-size: 10px;">Buy now</span></a></div>
                          </div>   
                       </div>
                     </div>
