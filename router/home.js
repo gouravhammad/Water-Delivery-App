@@ -110,8 +110,12 @@ router.post('/addUser', [
 
                         req.session.mobileno = user.mobileno
                       
-                        res.write("<script>alert('Used Added'); document.location.href='user'; </script>");
-                        res.end()   
+                        res.render('Alert',{
+                            type:"success",
+                            title:"Account Created",
+                            text:"You have successfully created your account",
+                            link:"user"
+                        }) 
                     })
                 }
             }) 
@@ -165,8 +169,12 @@ router.post('/loginVerify', [
                 if(err) throw err
                 if(result.length == 0)
                 {
-                    res.write("<script>alert('Invalid Mobile or Password'); document.location.href='login'; </script>");
-                    res.end()  
+                    res.render('Alert',{
+                        type:"error",
+                        title:"Oops...",
+                        text:"Invalid Mobile/Password",
+                        link:"login"
+                    })
                 }
                 else
                 {

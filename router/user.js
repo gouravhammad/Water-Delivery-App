@@ -9,8 +9,12 @@ router.use('/',function(req,res,next){
           
         if(!mobileno)
         {
-            res.write("<script>alert('Please login to continue'); document.location.href='/'; </script>");
-            res.end()
+            res.render('Alert',{
+                type:"error",
+                title:"Login to continue",
+                text:"You have logged out, please login to continue",
+                link:"/"
+            })
         }
         else
         {
@@ -57,10 +61,21 @@ router.get('/',function(req,res){
     }
 })
 
-router.get('/addToCart',function(req,res){  
+router.post('/addToCart',function(req,res){  
     try
     {
-        var pId = req.query.pId
+        var pId = req.body.pId
+        var category = req.body.category
+        
+        if(category == 'true')
+        {
+            category = 'drinking'
+        }
+        else
+        {
+            category = 'domestic'
+        }
+
         var mobileno = req.session.mobileno
         var quantity = 1
 
@@ -69,22 +84,28 @@ router.get('/addToCart',function(req,res){
         x = [[mobileno,pId,quantity]]
                 
         connection.query(sql,[x],function(err,result){
-        
             try
             {
                 if(err) throw err
 
                 if(result.affectedRows == 1)
                 {
-                    res.write("<script>alert('Added to cart'); document.location.href='/user'; </script>");
-                    res.end()  
+                    res.render('Alert',{
+                        type:"success",
+                        title:"Added to cart",
+                        text:"Product has been added to cart",
+                        link:".?category=" + category
+                    }) 
                 }
             }
             catch(e)
             {
-                console.log("xxxxx")
-                res.write("<script>alert('Already added'); document.location.href='/user'; </script>");
-                res.end()  
+                res.render('Alert',{
+                    type:"info",
+                    title:"Already added",
+                    text:"Product is already there in cart",
+                    link:".?category=" + category
+                })
             }
         })
     } 
@@ -99,8 +120,12 @@ router.get('/logout',function(req,res){
     {
          req.session.mobileno = null
 
-         res.write("<script>alert('Logged Out'); document.location.href='/'; </script>");
-         res.end() 
+         res.render('Alert',{
+            type:"success",
+            title:"Logged Out",
+            text:"You have been logged out",
+            link:"/"
+        })
     }
     catch(e)
     {

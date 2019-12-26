@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>Water-Delivery</title>   
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/customCSS/alert.css"> 
+  </head>
+
+<body>
+    
+    <script src="/js/AlertScript.js"></script>
+            <script>
+                    Swal.fire({
+                      type:"<%=type%>",
+                      allowOutsideClick: false,
+                      title:"<%=title%>",
+                      text:"<%=text%>",
+                      showConfirmButton : false,
+                      footer :'<a href="<%=link%>" style="color:white; text-shadow:0px 0px 0.5px white ; letter-spacing:2px; font-weight:normal ; padding:10px 20px; border-radius:2px;  background:#3085d6 ; text-decoration:none;">OKAY</a>'
+                    });
+    </script>
+    
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+      
+</body>
+</html>
