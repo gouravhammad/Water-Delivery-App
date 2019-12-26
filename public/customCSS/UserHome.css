@@ -1,10 +1,7 @@
+
 body {
     font-family: 'Poppins', sans-serif;
-    background-color:#EFF2F5;
-    font-weight: 500;
-    width: 100%;
-    padding: 0;
-    margin: 0;
+    background: #fafafa;
 }
 
 p {
@@ -24,7 +21,7 @@ a:focus {
 }
 
 .navbar {
-    padding: 0px 0px;
+    padding: 5px 0px;
     background: #fff;
     border: none;
     border-radius: 0;
@@ -50,7 +47,7 @@ a:focus {
 ----------------------------------------------------- */
 
 #sidebar {
-    margin-top: 30px;
+    margin-top: 36px;
     width: 250px;
     position: fixed;
     top: 0;
@@ -187,48 +184,32 @@ a.article:hover {
     position: absolute;
     top: 0;
     right: 0;
+    padding-bottom: 5px;
 }
 
-.product-heading
+.notification
+{
+    margin-left: -10px;
+    margin-top: -15px; 
+    font-size: 10px;   
+    background-color: red; 
+    color: white; 
+    border-radius: 50px; 
+    padding-left: 5px; 
+    padding-right: 5px;
+}
+
+.bottom-button
+{
+    border-radius: 0px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+
+}
+
+.product-button
 {
     font-size: 13px;
+    border-radius: 0px;
     font-weight: 600;
-    text-align: justify;
-}
-
-.product-name
-{
-    padding: 2px;
-    height: 35px;
-}
-
-.product-detail
-{
-    padding: 2px;
-    height: 25px;
-}
-
-.detail-text
-{
-    font-size: 10px;
-    text-align: justify;
-    background-color: white;
-    height: 25px;
-}
-
-.product-price
-{
-    font-size: 12px;
-    font-weight: bold;
-}
-  
-.category-button
-{
-    border-radius: 0px;
-    letter-spacing: 2px;
-}
-
-.card-button
-{
-    border-radius: 0px;
 }

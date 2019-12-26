@@ -3,21 +3,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, height=device-height initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Water-Delivery</title>
 
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" href="./customCSS/UserHome.css">
-    <link rel="stylesheet" href="./customCSS/common.css">
-    
-    <!-- Scrollbar Custom CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/customCSS/UserHome.css">
+    <link rel="stylesheet" href="/customCSS/common.css"> 
+    <link rel="stylesheet" href="/customCSS/jquery.mCustomScrollbar.min.css">
 
 </head>
 
@@ -26,110 +20,154 @@
     <div class="wrapper">
         <!-- Sidebar  -->
         <nav id="sidebar">
-            <div id="dismiss">
-                <i class="fas fa-arrow-left"></i>
+            <div class="mt-3" id="dismiss">
+                <img src="/background/back.svg" height="15" width="15">
             </div>
 
-            <ul class="list-unstyled components"> 
-                <li> <a href="#">My Account</a> </li>
-                <li> <a href="#">Subscriptions</a> </li>
-                <li> <a href="#">Contact Us</a> </li>
-                <li> <a href="#">About Us</a> </li>
-                <li> <a href="#">Share</a> </li>
-                <li> <a href="#">Rate Us</a> </li>
-                <li> <a href="#">Log Out</a> </li>
-            </ul>
+            <ul class="list-unstyled components">
 
+                <li>
+                    <a href="#">Home</a>
+                </li>
+                <li>
+                    <a href="#">Login</a>
+                </li>
+                <li>
+                    <a href="#">Signup</a>
+                </li>
+                <li>
+                    <a href="user/logout">Log Out</a>
+                </li>
+            </ul>
         </nav>
 
         <!-- Page Content  -->
         <div id="content">
-
-            <nav class="navbar  navbar-light bg-light fixed-top p-0">
-                <div class="container-fluid p-0">
-                    <button type="button" id="sidebarCollapse" class="ml-1 btn btn-info">
-                        <i class="fas fa-align-left"></i>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn ml-2">
+                        <img src="/background/menu.svg" height="20" width="20">
                     </button>
+
+                    <span class="nav-item h5">Home</span>
                     
-                    <h4 style="margin-left: auto; margin-right: auto; font-weight: bolder; margin-top: 5px;">HOME</h4>
-                       
+                    <form class="form-inline my-2 my-lg-0 mr-2">
+                        <img class="form-inline" src="/background/bell.svg" height="25" width="25"><span class="notification">2</span>
+                        <img class="form-inline mr-1" src="/background/cart.svg" height="25" width="25"><span class="notification">5</span class="notification">
+                      </form>                    
                 </div>
             </nav>
 
-            <div class="container p-0 mt-5 mb-3">
-              <div class="row row-cols-2">
-
-                <% for(i = 0; i < result.length; i++){ %>
-
-                  <div class="col p-0" style="height: 285px;">
-                    <div class="card mt-2 ml-auto mr-auto rounded shadow" style="width: 9rem; height: 270px;">
-                      <div class="row text-center">
-                        <div class="col mt-2">
-                         <img src="./products/<%= result[i].picture %>" height="130" width="130" alt="...">
-                        </div>
-                      </div>
-                      <div class="card-body">
-                        <div class="row product-name">
-                            <div class="col p-0">
-                              <h5 class="card-title product-heading"><%= result[i].name %></h5>
+            <div class="container-fluid mt-5 p-0 mb-5">
+                <div class="row">
+                    <div class="col p-0"> 
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                              <div class="carousel-item active">
+                                <img class="d-block w-100" src="/background/1.jpg" alt="First slide">
+                              </div>
+                              <div class="carousel-item">
+                                <img class="d-block w-100" src="/background/2.jpg" alt="Second slide">
+                              </div>
+                              <div class="carousel-item">
+                                <img class="d-block w-100" src="/background/3.jpg" alt="Third slide">
+                              </div>
                             </div>
-                        </div>
-                        <div class="row product-detail">
-                          <div class="col p-0">
-                            <h6 class="detail-text">This extra detail is optionl, We can remove it</h6>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Next</span>
+                            </a>
                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col p-0">
-                              <p class="card-text product-price ml-1"> Rs. <%= result[i].price %></p>
-                           </div>
-                        </div>
-                         <div class="row">
-                            <div class="col p-0"><a href="#" class="card-button btn btn-outline-dark btn-sm btn-block p-0"><span class="font-weight-bold" style="font-size: 10px;">Add to cart</span></a></div>
-                            <div class="col p-0"><a href="#" class="card-button btn btn-dark btn-sm btn-block p-0"><span class="font-weight-bold" style="font-size: 10px;">Buy now</span></a></div>
-                         </div>   
-                      </div>
                     </div>
-                  </div>
-   
+                </div>
 
-                  <% } %>
-      
-              </div>
+                <div class="row p-0 mt-2">
+                    <div class="col text-right p-0">
+                        <div class="dropdown mr-3">
+                            <button class="btn btn-light" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="form-inline" src="/background/filter.svg" height="25" width="25">
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <a href="#" class="dropdown-item disabled font-weight-bold">Brand</a>
+                                <a href="#" class="dropdown-item small">Bislery</a>
+                                <a href="#" class="dropdown-item small">Kinley</a>
+                                <a href="#" class="dropdown-item small">Local</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" class="dropdown-item disabled font-weight-bold">Price</a>
+                                <a href="#" class="dropdown-item small">Low to High</a>
+                                <a href="#" class="dropdown-item small">High to Low</a>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                        
+                        <% for(i = 0; i < result.length; i++){ %>
+
+                            <div class="col col-6 col-md-3 p-1">
+                                <div class="card mt-2 rounded shadow p-1">
+                                    <div class="card-body pt-2 pb-2 pl-2 pr-2 text-center">
+                                        <img src="/products/<%= result[i].picture %>" class="card-img-top" alt="product" style="max-width: 350px; max-height: 350px;">
+                                    </div>
+                                    <div class="card-body p-1">
+                                    <h5 class="card-title h6" style="min-height: 55px;"><%= result[i].name %></h5>
+                                    <h6 class="card-subtitle mb-2 small">Extra Details Optional</h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">Rs. <%= result[i].price %></h6>
+                                    </div>
+                                    <div class="card-body pt-0 pb-2">
+                                        <div class="row p-0">
+                                            <div class="col col-5 p-0"><a href="#" class="product-button btn btn-dark btn-sm btn-block p-0 pt-1 pb-1">Buy now</a></div>
+                                            <div class="col col-7 p-0"><a href="user/addToCart?pId=<%= result[i].pId %>" class="product-button btn btn-outline-dark bg-light btn-sm btn-block p-0 pt-1 pb-1">Add to cart</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        <% } %>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+            <div class="row p-0 fixed-bottom">
+                <div class="col p-0">
+                    <% if(drinking){ %>
+                        <a href="?category=drinking" class="bottom-button btn btn-dark btn-sm btn-block">DRINKING</a>
+                    <%}else{%>
+                        <a href="?category=drinking" class="bottom-button btn btn-outline-dark bg-light btn-sm btn-block">DRINKING</a>
+                    <%}%>    
+                </div>
+                <div class="col p-0">
+                    <% if(domestic){ %>
+                        <a href="?category=domestic" class="bottom-button btn btn-dark btn-sm btn-block">TANKERS</a>
+                    <%}else{%>
+                        <a href="?category=domestic" class="bottom-button btn btn-outline-dark bg-light btn-sm btn-block">TANKERS</a>
+                    <%}%>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="overlay"></div>
 
-    <footer class="bg-light fixed-bottom">
-      <div class="container">
-        <div class="row">
-            <div class="col p-0">
-                <% if(drinking){ %>
-                    <a href="?category=drinking" class="category-button btn btn-dark btn-sm btn-block font-weight-bold">DRINKING</a>
-                <%}else{%>
-                    <a href="?category=drinking" class="category-button btn btn-outline-dark btn-sm btn-block font-weight-bold">DRINKING</a>
-                <%}%>
-            </div>  
-
-            <div class="col p-0">
-                <% if(domestic){ %>
-                    <a href="?category=domestic" class="category-button btn btn-dark btn-sm btn-block font-weight-bold">TANKERS</a>
-                <%}else{%>
-                    <a href="?category=domestic" class="category-button btn btn-outline-dark btn-sm btn-block font-weight-bold">TANKERS</a>
-                <%}%>
-            </div>     
-        </div>
-        </div>
-      </div>
-    </footer>
-
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/popper.min.js"></script>
-    <!-- jQuery Custom Scroller CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -149,7 +187,6 @@
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
         });
-        
     </script>
 </body>
 
