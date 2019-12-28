@@ -30,7 +30,7 @@
                     <a href="#">Home</a>
                 </li>
                 <li>
-                    <a href="user/myAccount">My Account</a>
+                    <a href="/user/myAccount">My Account</a>
                 </li>
                 <li>
                     <a href="#">My Orders</a>
@@ -139,7 +139,7 @@
                                         <div class="row p-0">
                                             <div class="col col-5 p-0"><a href="#" class="product-button btn btn-dark btn-sm btn-block p-0 pt-1 pb-1">Buy now</a></div>
                                             <div class="col col-7 p-0">
-                                                <form action="/user/addToCart" method="POST">
+                                                <form action="user/addToCart" method="POST">
                                                     <input type="hidden" name="pId" value="<%= result[i].pId %>">
                                                     <input type="hidden" name="category" value="<%= drinking %>">
                                                     <input type="submit" class="product-button btn btn-outline-dark bg-light btn-sm btn-block p-0 pt-1 pb-1" value="Add to cart">

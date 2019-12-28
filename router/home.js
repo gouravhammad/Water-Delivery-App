@@ -114,7 +114,7 @@ router.post('/addUser', [
                             type:"success",
                             title:"Account Created",
                             text:"You have successfully created your account",
-                            link:"user"
+                            link:"user?category=drinking"
                         }) 
                     })
                 }
@@ -179,7 +179,7 @@ router.post('/loginVerify', [
                 else
                 {
                     req.session.mobileno = user.mobileno
-                    res.redirect('../user')
+                    res.redirect('../user?category=drinking')
                 }
             }) 
         }

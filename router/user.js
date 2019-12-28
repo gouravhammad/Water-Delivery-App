@@ -19,7 +19,7 @@ router.use('/',function(req,res,next){
         }
         else
         {
-            next()
+            next();
         } 
     }
     catch(e)
@@ -113,7 +113,7 @@ router.post('/addToCart',function(req,res){
                         type:"success",
                         title:"Added to cart",
                         text:"Product has been added to cart",
-                        link:".?category=" + category
+                        link:"/user?category=" + category
                     }) 
                 }
             }
@@ -123,7 +123,7 @@ router.post('/addToCart',function(req,res){
                     type:"info",
                     title:"Already added",
                     text:"Product is already there in cart",
-                    link:".?category=" + category
+                    link:"/user?category=" + category
                 })
             }
         })
@@ -233,7 +233,6 @@ router.post('/saveChangesUser', [
         {
             var sql = "update user set username = '" + user.username + "', email = '" + user.email + "', address = '" + user.address + "', password = '" + user.password + "' where mobileno = " + user.mobileno
           
-            console.log(sql)
             connection.query(sql,function(err,result){
                 if(err) throw err
                 if(result.affectedRows == 1)
