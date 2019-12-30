@@ -182,10 +182,10 @@ router.get('/updateUser',function(req,res){
         var sql = sql1 + sql2
 
         connection.query(sql,function(err,result){
-            console.log(result)
+        
             if(err) throw err
            
-            res.render('Updateuser',{
+            res.render('UpdateUser',{
                 user:result[0],
                 cartTotal:result[1]
             })
