@@ -36,7 +36,7 @@
                     <a href="#">My Orders</a>
                 </li>
                 <li>
-                    <a href="#">My Cart</a>
+                    <a href="/user/cart">My Cart</a>
                 </li>
                 <li>
                     <a href="#">About Us</a>
@@ -61,8 +61,8 @@
                     <span class="nav-item h5">Update Account</span>
                     
                     <form class="form-inline my-2 my-lg-0 mr-2">
-                        <img class="form-inline" src="/background/bell.svg" height="25" width="25"><span class="notification">2</span>
-                        <img class="form-inline mr-1" src="/background/cart.svg" height="25" width="25"><span class="notification">5</span class="notification">
+                        <img class="form-inline" src="/background/bell.svg" height="25" width="25"><span class="notification text-center"><%= cartTotal[0].cartTotal %></span>
+                        <a href="/user/cart"><img class="form-inline mr-1" src="/background/cart.svg" height="25" width="25"></a><span class="notification text-center"><%= cartTotal[0].cartTotal %></span>
                       </form>                    
                 </div>
             </nav>
@@ -77,7 +77,7 @@
                             </div>
                             <div class="col col-9">
                               <form action="saveChangesUser" method="POST">
-                                <input type="text" name="username" value='<%=user.username%>' class="form-control form-control-sm"/>
+                                <input type="text" name="username" value='<%=user[0].username%>' class="form-control form-control-sm"/>
                                 <span class="error"> <%= error.nameError%> </span>
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                                <p class="font-weight-bold text-right small">Mobile</p>
                             </div>
                             <div class="col col-9">
-                               <input type="text" name="mobileno" readonly="true" value='<%=user.mobileno%>' class="form-control form-control-sm"/>
+                               <input type="text" name="mobileno" readonly="true" value='<%=user[0].mobileno%>' class="form-control form-control-sm"/>
                             </div>
                         </div>
 
@@ -96,7 +96,7 @@
                                 <p class="font-weight-bold text-right small">Email</p>
                             </div>
                             <div class="col col-9">
-                                <input type="text" name="email" value='<%=user.email%>' class="form-control form-control-sm"/>
+                                <input type="text" name="email" value='<%=user[0].email%>' class="form-control form-control-sm"/>
                                 <span class="error"> <%= error.emailError%> </span>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                                 <p class="font-weight-bold text-right small">Password</p>
                             </div>
                             <div class="col col-9">
-                                <input type="text" name="password" value='<%=user.password%>' class="form-control form-control-sm"/>
+                                <input type="text" name="password" value='<%=user[0].password%>' class="form-control form-control-sm"/>
                                 <span class="error"> <%= error.passwordError%> </span>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                                <p class="font-weight-bold text-right small">Address</p>
                             </div>
                             <div class="col col-9">
-                                <textarea class="form-control form-control-sm" name="address"><%=user.address%></textarea>
+                                <textarea class="form-control form-control-sm" name="address"><%=user[0].address%></textarea>
                                 <span class="error"> <%= error.addressError%> </span>
                             </div>
                         </div>

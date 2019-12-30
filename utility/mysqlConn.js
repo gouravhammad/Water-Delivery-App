@@ -4,7 +4,8 @@ const connection = mysql.createConnection({
     host:'remotemysql.com',
     user:'7xAfr50b8i',
     password:'FcO7wSxs3Q',
-    database:'7xAfr50b8i'
+    database:'7xAfr50b8i',
+    multipleStatements: true
 })
 
 connection.connect()

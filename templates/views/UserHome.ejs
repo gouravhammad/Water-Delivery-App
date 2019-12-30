@@ -36,7 +36,7 @@
                     <a href="#">My Orders</a>
                 </li>
                 <li>
-                    <a href="#">My Cart</a>
+                    <a href="/user/cart">My Cart</a>
                 </li>
                 <li>
                     <a href="#">About Us</a>
@@ -61,8 +61,8 @@
                     <span class="nav-item h5">Home</span>
                     
                     <form class="form-inline my-2 my-lg-0 mr-2">
-                        <img class="form-inline" src="/background/bell.svg" height="25" width="25"><span class="notification">2</span>
-                        <img class="form-inline mr-1" src="/background/cart.svg" height="25" width="25"><span class="notification">5</span class="notification">
+                        <img class="form-inline" src="/background/bell.svg" height="25" width="25"><span class="notification text-center"><%= cartTotal[0].cartTotal %></span>
+                        <a href="/user/cart"><img class="form-inline mr-1" src="/background/cart.svg" height="25" width="25"></a><span class="notification text-center"><%= cartTotal[0].cartTotal %></span class="notification">
                       </form>                    
                 </div>
             </nav>

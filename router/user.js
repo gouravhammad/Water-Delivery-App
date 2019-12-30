@@ -49,13 +49,14 @@ router.get('/logout',function(req,res){
 router.get('/',function(req,res){
     try
     {
+        var mobileno = req.session.mobileno
         var category = req.query.category
         var drinking = true
         var domestic = false
 
         if(category)
         {
-            var sql = "select * from product where category = '" + category + "'"
+            var sql1 = "select * from product where category='"+category+"' ; "
             
             if(category == 'domestic')
             {
@@ -65,13 +66,22 @@ router.get('/',function(req,res){
         }
         else
         {
-            var sql = "select * from product where category = 'drinking'"
+            var sql1 = "select * from product where category='drinking' ; "
         }
 
+        var sql2 = "select count(*) as cartTotal from cart where mobileno="+mobileno+" ; "
+        var sql = sql1 + sql2
+
         connection.query(sql,function(error,result){
+           
             if(error) throw error
 
-            res.render('UserHome',{result,drinking,domestic,cartTotal:10})
+            res.render('UserHome',{
+                result:result[0],
+                drinking,
+                domestic,
+                cartTotal:result[1]
+            })
         })
     }
     catch(e)
@@ -100,22 +110,19 @@ router.post('/addToCart',function(req,res){
 
         var sql = "insert into cart values ?"
                 
-        x = [[mobileno,pId,quantity]]
+        var x = [[mobileno,pId,quantity]]
                 
         connection.query(sql,[x],function(err,result){
             try
             {
                 if(err) throw err
 
-                if(result.affectedRows == 1)
-                {
-                    res.render('Alert',{
-                        type:"success",
-                        title:"Added to cart",
-                        text:"Product has been added to cart",
-                        link:"/user?category=" + category
-                    }) 
-                }
+                res.render('Alert',{
+                    type:"success",
+                    title:"Added to cart",
+                    text:"Product has been added to cart",
+                    link:"/user?category="+category
+                }) 
             }
             catch(e)
             {
@@ -123,7 +130,7 @@ router.post('/addToCart',function(req,res){
                     type:"info",
                     title:"Already added",
                     text:"Product is already there in cart",
-                    link:"/user?category=" + category
+                    link:"/user?category="+category
                 })
             }
         })
@@ -137,19 +144,20 @@ router.post('/addToCart',function(req,res){
 router.get('/myAccount',function(req,res){
     try
     {
-        var sql = "select * from user where mobileno = ?"
-        x = [[user.mobileno]]
+        var mobileno = req.session.mobileno
 
-        connection.query(sql,[x],function(err,result){
+        var sql1 = "select * from user where mobileno="+mobileno+" ; "
+        var sql2 = "select count(*) as cartTotal from cart where mobileno="+mobileno
+        var sql = sql1 + sql2
+
+        connection.query(sql,function(err,result){
+            
             if(err) throw err
-            if(result.length == 1)
-            {
-                res.render('MyAccount',{result})
-            }
-            else
-            {
-                console.log("Problem myAccount")
-            }
+           
+            res.render('MyAccount',{
+                result:result[0],
+                cartTotal:result[1]
+            })
         })
     }
     catch(e)
@@ -161,19 +169,26 @@ router.get('/myAccount',function(req,res){
 router.get('/updateUser',function(req,res){
     try
     {
-        var sql = "select * from user where mobileno = ?"
-        x = [[user.mobileno]]
+        var mobileno = req.session.mobileno
+        var error = {
+            nameError:null,
+            addressError:null,
+            emailError:null,
+            passwordError:null
+        }
 
-        connection.query(sql,[x],function(err,result){
+        var sql1 = "select * from user where mobileno="+mobileno+" ; "
+        var sql2 = "select count(*) as cartTotal from cart where mobileno="+mobileno
+        var sql = sql1 + sql2
+
+        connection.query(sql,function(err,result){
+            console.log(result)
             if(err) throw err
-            if(result.length == 1)
-            {
-                res.render('UpdateUser',{user:result[0]})
-            }
-            else
-            {
-                console.log("Problem myAccount")
-            }
+           
+            res.render('Updateuser',{
+                user:result[0],
+                cartTotal:result[1]
+            })
         })
     }
     catch(e)
@@ -193,7 +208,7 @@ router.post('/saveChangesUser', [
     {
         const errors = validationResult(req);
         
-        user = {
+        var user = {
             email: req.body.email,
             username: req.body.username,
             address: req.body.address,
@@ -201,7 +216,12 @@ router.post('/saveChangesUser', [
             mobileno: req.body.mobileno
         }
 
-        error = {nameError:null, passwordError:null, emailError:null, addressError:null}
+        error = {
+            nameError:null,
+            passwordError:null,
+            emailError:null,
+            addressError:null
+        }
 
         for(i = 0; i < errors.errors.length; i++)
         {
@@ -226,30 +246,126 @@ router.post('/saveChangesUser', [
         }
 
         if (!errors.isEmpty())
-        {
-            res.render('UpdateUser',{user:user,error:error})
+        { 
+            var sql = "select count(*) as cartTotal from cart where mobileno="+user.mobileno
+            
+            connection.query(sql,function(err,result){
+                if(err) throw err
+               
+                res.render('Updateuser',{
+                    user:[user],
+                    error,
+                    cartTotal:result
+                })
+            })
         }
         else
         {
-            var sql = "update user set username = '" + user.username + "', email = '" + user.email + "', address = '" + user.address + "', password = '" + user.password + "' where mobileno = " + user.mobileno
+            var sql = "update user set username ='"+user.username+"', email='"+user.email+"', address='"+user.address+"', password='"+user.password+"' where mobileno="+user.mobileno+"; "
           
             connection.query(sql,function(err,result){
+                
                 if(err) throw err
-                if(result.affectedRows == 1)
-                {
-                    res.render('Alert',{
-                        type:"success",
-                        title:"Account Updated",
-                        text:"You have successfully updated your account",
-                        link:"/user/myAccount"
-                    })   
-                }
-                else
-                {
-                    console.log("Error in Updating")
-                }
+              
+                res.render('Alert',{
+                    type:"success",
+                    title:"Account Updated",
+                    text:"You have successfully updated your account",
+                    link:"/user/myAccount"
+                })   
+                     
             }) 
         }
+    }
+    catch(e)
+    {
+        res.redirect('/')
+    }
+})
+
+router.get('/cart',function(req,res){ 
+    try
+    {
+        var mobileno = req.session.mobileno
+
+        var sql1 = "select p.pId,p.price,p.name,p.picture,c.quantity from product p,cart c where p.pId=c.pId and mobileno="+mobileno+" ; "
+        var sql2 = "select count(*) as cartTotal from cart where mobileno="+mobileno
+        var sql = sql1 + sql2
+       
+        connection.query(sql,function(err,result){
+           
+            if(err) throw err
+           
+            if(result[0].length >= 1)
+            {
+                res.render('Cart',{
+                    result:result[0],
+                    cartTotal:result[1],
+                    error:null
+                })
+            }
+            else
+            {
+                res.render('Cart',{
+                    result:null,
+                    cartTotal:result[1],
+                    error:'No items in cart'
+                })
+            }
+        })   
+    }
+    catch(e)
+    {
+        res.redirect('/')
+    }
+})
+
+router.post('/removeFromCart',function(req,res){ 
+    try
+    {
+        var mobileno = req.session.mobileno
+        var pId = req.body.pId
+
+        var sql = "delete from cart where pId="+pId+" and mobileno="+mobileno
+       
+        connection.query(sql,function(err,result){
+            if(err) throw err
+            if(result.affectedRows == 1)
+            {
+                res.redirect('cart')
+            }
+            else
+            {
+                console.log("Error in Removing Product")
+            }
+        })   
+    }
+    catch(e)
+    {
+        res.redirect('/')
+    }
+})
+
+router.post('/changeQuantity',function(req,res){ 
+    try
+    {
+        var mobileno = req.session.mobileno
+        var quantity = req.body.name
+        var pId = req.body.pId
+
+        var sql = "update cart set quantity="+quantity+" where pId="+pId+" and mobileno="+mobileno
+       
+        connection.query(sql,function(err,result){
+            if(err) throw err
+            if(result.affectedRows == 1)
+            {
+                res.redirect('cart')
+            }
+            else
+            {
+                console.log("Error in Changing Quantity")
+            }
+        })   
     }
     catch(e)
     {
