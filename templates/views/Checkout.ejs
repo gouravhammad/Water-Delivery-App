@@ -10,7 +10,6 @@
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/customCSS/common.css"> 
-    <link rel="stylesheet" href="/customCSS/cart.css">
     <link rel="stylesheet" href="/customCSS/sidebar.css"> 
     <link rel="stylesheet" href="/customCSS/jquery.mCustomScrollbar.min.css">
 
@@ -36,7 +35,7 @@
                     <a href="#">My Orders</a>
                 </li>
                 <li>
-                    <a href="#">My Cart</a>
+                    <a href="/user/cart">My Cart</a>
                 </li>
                 <li>
                     <a href="#">About Us</a>
@@ -58,75 +57,72 @@
                         <img src="/background/menu.svg" height="20" width="20">
                     </button>
 
-                    <span class="nav-item h5">My Cart</span>
+                    <span class="nav-item h5">Checkout</span>
                     
                     <form class="form-inline my-2 my-lg-0 mr-2">
                         <img class="form-inline" src="/background/bell.svg" height="25" width="25"><span class="notification text-center"><%= cartTotal[0].cartTotal %></span>
-                        <a href="#"><img class="form-inline mr-1" src="/background/cart.svg" height="25" width="25"></a><span class="notification text-center"><%= cartTotal[0].cartTotal %></span class="notification">
+                        <a href="/user/cart"><img class="form-inline mr-1" src="/background/cart.svg" height="25" width="25"></a><span class="notification text-center"><%= cartTotal[0].cartTotal %></span class="notification">
                     </form>                    
                 </div>
             </nav>
  
             <div class="container-fluid mt-5 p-0 mb-0">
                 <div class="row">
-                    <div class="col col-md-6 mx-auto"> 
-                    
-                    <% if(result){
-                       for(i = 0; i < result.length; i++){ %>
-                           
-                        <div class="row shadow-sm mb-2">
-                            <div class="col col-3 p-2 text-center">
-                                <img src="/products/<%= result[i].picture %>" class="img-thumbnail">
-                            </div>
+                    <div class="col col-md-6 mx-auto shadow pt-2"> 
+                        
+                        <div class="row mb-3">
                             <div class="col col-5">
-                                <div class="row pt-3">
-                                    <h6><%= result[i].name %></h6>
-                                </div>
-                                <div class="row">
-                                    <h6>Rs. <%= result[i].price %></h6>
-                                </div>
+                                <h6>Delivery Type:</h6>
                             </div>
-                            <div class="col col-4">
-                                <div class="row">
-                                    <div class="col p-0">
-                                        <form action="changeQuantity" method="POST" >
-                                            <button type="button" class="button hollow circle" data-quantity="minus" data-field="<%=i%>">-</button>
-                                            <input class="quantity" type="number" name="<%=i%>" value="<%= result[i].quantity %>">
-                                            <button type="button" class="button hollow circle" data-quantity="plus" data-field="<%=i%>">+</button>
-                                            <input type="hidden" name="pId" value="<%= result[i].pId %>">
-                                            <input type="hidden" name="name" value="1" id="<%=i%>">
-                                            <input type="submit" value="change" class="btn btn-dark btn-sm">
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col p-0">
-                                        <form action="removeFromCart" method="POST">
-                                            <input type="hidden" name="pId" value="<%= result[i].pId %>">
-                                            <input type="submit" value="x" class="btn btn-danger btn-sm">
-                                        </form>
-                                    </div>
-                                </div>
+                            <div class="col col-7">
+                                <select onclick="setTotal()" id="deliveryType">
+                                    <option selected" value="30">Normal (Rs. 30)</option>
+                                    <option value="50">Fast (Rs. 50)</option>
+                                    <option value="70">Super Fast (Rs. 70)</option>
+                                </select>
                             </div>
                         </div>
 
-                        <% }%>
-
-                        <div class="row shadow-sm mb-2">
-                            <div class="col">
-                                <h5 class="text-center">Total: Rs. <%= total[0].total %></h5>
+                        <div class="row mb-3">
+                            <div class="col col-5">
+                                <h6>Delivery Address:</h6>
+                            </div>
+                            <div class="col col-7">
+                               <textarea id="mylocation">Near APS MHOW</textarea>
+                               <button class="btn btn-outline-dark btn-sm" onclick="getLocation()">Auto Detect Location</button>
                             </div>
                         </div>
 
-                        <div class="row mt-1">
-                            <div class="col col-5 mx-auto mt-2 p-0">
-                               <a href="payment" class="btn btn-block bg-dark text-white btn-sm">Proceed To Pay</a>
+                        <div class="row mb-3">
+                            <div class="col col-5">
+                                <h6>Payment Mode:</h6>
+                            </div>
+                            <div class="col col-7">
+                              <input type="radio" name="paymentMode" checked><span> Cash on Delivery</span><br>
+                              <input type="radio" name="paymentMode"><span> Google Pay</span><br>
+                              <input type="radio" name="paymentMode"><span> Paytm</span><br>
                             </div>
                         </div>
-                       
-                    <%}else{%>
-                    <%= error %>
-                    <% } %>
+
+                        <div class="row mb-3">
+                            <div class="col col-5">
+                                <h6>Product Price:</h6>
+                                <h6>Delivery Charges:</h6>
+                                <h6>FINAL TOTAL:</h6>
+                            </div>
+                            <div class="col col-7">
+                                <input type="hidden" value="<%= total[0].total %>" id="total">
+                                <h6>Rs. <%= total[0].total %></h6>
+                                <h6 id="deliveryCharges">Rs. 30</h6>
+                                <h6 id="finalTotal">Rs. <%= (total[0].total + 30) %></h6>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col col-6 mx-auto">
+                                <button class="btn btn-dark btn-block">Pay Now</button>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -206,8 +202,42 @@
             document.getElementById(i).value=y
         }
 
+        function getLocation()
+        {
+            if (!navigator.geolocation)
+            {
+                return alert('Geolocation is not supported by your browser.')
+            }
+
+            navigator.geolocation.getCurrentPosition(function(location){
+                
+                var latitude = location.coords.latitude
+                var longitude = location.coords.longitude
+                
+                document.getElementById("mylocation").value = 'Your current location will be seen here!'
+
+                var locationAPI = "http://maps.googleapis.com/maps/api/geocode/json?latlng="+latitude+","+longitude+"&sensor=false";
+               
+                $.get({
+                    url: locationAPI,
+                    success: function(data){
+                        console.log(data)
+                    }
+                })
+            })
+        }
+
+        function setTotal()
+        {
+            var deliveryType = parseInt(document.getElementById("deliveryType").value)
+            var total = parseInt(document.getElementById("total").value)
+            var finalTotal = deliveryType + total
+
+            document.getElementById("deliveryCharges").innerHTML = 'Rs. ' + deliveryType
+            document.getElementById("finalTotal").innerHTML = 'Rs. ' + finalTotal
+        }
 
     </script>
 </body>
-
+w
 </html>

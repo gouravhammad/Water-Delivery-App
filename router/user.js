@@ -141,6 +141,47 @@ router.post('/addToCart',function(req,res){
     }
 })
 
+router.post('/buyNow',function(req,res){  
+    try
+    {
+        var pId = req.body.pId
+        var category = req.body.category
+        
+        if(category == 'true')
+        {
+            category = 'drinking'
+        }
+        else
+        {
+            category = 'domestic'
+        }
+
+        var mobileno = req.session.mobileno
+        var quantity = 1
+
+        var sql = "insert into cart values ?"
+                
+        var x = [[mobileno,pId,quantity]]
+                
+        connection.query(sql,[x],function(err,result){
+            try
+            {
+                if(err) throw err
+
+                res.redirect('cart')
+            }
+            catch(e)
+            {
+                res.redirect('cart')
+            }
+        })
+    } 
+    catch(e)
+    {
+        res.redirect('/')
+    }
+})
+
 router.get('/myAccount',function(req,res){
     try
     {
@@ -261,7 +302,7 @@ router.post('/saveChangesUser', [
         }
         else
         {
-            var sql = "update user set username ='"+user.username+"', email='"+user.email+"', address='"+user.address+"', password='"+user.password+"' where mobileno="+user.mobileno+"; "
+            var sql = "update user set username='"+user.username+"', email='"+user.email+"', address='"+user.address+"', password='"+user.password+"' where mobileno="+user.mobileno+"; "
           
             connection.query(sql,function(err,result){
                 
@@ -288,9 +329,10 @@ router.get('/cart',function(req,res){
     {
         var mobileno = req.session.mobileno
 
-        var sql1 = "select p.pId,p.price,p.name,p.picture,c.quantity from product p,cart c where p.pId=c.pId and mobileno="+mobileno+" ; "
-        var sql2 = "select count(*) as cartTotal from cart where mobileno="+mobileno
-        var sql = sql1 + sql2
+        var sql1 = "select p.pId,p.price,p.name,p.picture,c.quantity from product p,cart c where p.pId=c.pId and c.mobileno="+mobileno+" ; "
+        var sql2 = "select count(*) as cartTotal from cart where mobileno="+mobileno+" ; "
+        var sql3 = "select sum(p.price*c.quantity) as total from cart c,product p where c.pId = p.pId and c.mobileno="+mobileno+" ; "
+        var sql = sql1 + sql2 + sql3
        
         connection.query(sql,function(err,result){
            
@@ -301,6 +343,7 @@ router.get('/cart',function(req,res){
                 res.render('Cart',{
                     result:result[0],
                     cartTotal:result[1],
+                    total:result[2],
                     error:null
                 })
             }
@@ -309,6 +352,7 @@ router.get('/cart',function(req,res){
                 res.render('Cart',{
                     result:null,
                     cartTotal:result[1],
+                    total:null,
                     error:'No items in cart'
                 })
             }
@@ -329,15 +373,10 @@ router.post('/removeFromCart',function(req,res){
         var sql = "delete from cart where pId="+pId+" and mobileno="+mobileno
        
         connection.query(sql,function(err,result){
+            
             if(err) throw err
-            if(result.affectedRows == 1)
-            {
-                res.redirect('cart')
-            }
-            else
-            {
-                console.log("Error in Removing Product")
-            }
+          
+            res.redirect('cart') 
         })   
     }
     catch(e)
@@ -356,16 +395,36 @@ router.post('/changeQuantity',function(req,res){
         var sql = "update cart set quantity="+quantity+" where pId="+pId+" and mobileno="+mobileno
        
         connection.query(sql,function(err,result){
+            
             if(err) throw err
-            if(result.affectedRows == 1)
-            {
-                res.redirect('cart')
-            }
-            else
-            {
-                console.log("Error in Changing Quantity")
-            }
+          
+            res.redirect('cart')
         })   
+    }
+    catch(e)
+    {
+        res.redirect('/')
+    }
+})
+
+router.get('/payment',function(req,res){ 
+    try
+    {
+        var mobileno = req.session.mobileno
+
+        var sql1 = "select count(*) as cartTotal from cart where mobileno="+mobileno+" ; "
+        var sql2 = "select sum(p.price*c.quantity) as total from cart c,product p where c.pId = p.pId and c.mobileno="+mobileno+" ; "
+        var sql = sql1+sql2
+        
+        connection.query(sql,function(err,result){
+           
+            if(err) throw err
+           
+            res.render('Checkout',{
+                cartTotal:result[0],
+                total:result[1]
+            })
+        })
     }
     catch(e)
     {
